@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-
+import 'package:flutter_get_it_sample/di/injection_countainer.dart';
 import 'bloc/counter_bloc.dart';
 import 'bloc/counter_event.dart';
 import 'bloc/counter_state.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await init();
   runApp(MyApp());
 }
 
@@ -36,7 +38,7 @@ class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => CounterBloc(),
+      create: (context) => inject<CounterBloc>(),
       child: BlocBuilder<CounterBloc, CounterState>(builder: (context, state) {
         return Scaffold(
           appBar: AppBar(
